@@ -481,59 +481,6 @@
         <p>&copy; 2026 Mridhul & Neha. All Rights Reserved.</p>
     </footer>
 
-    <!-- ✨ AI Wedding Concierge Floating Button ✨ -->
-    <button id="chatbot-toggle" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-brand-traditional text-white p-4 rounded-full shadow-2xl hover:bg-brand-accent transition duration-300 z-50 flex items-center gap-2">
-        <span class="text-xl">✨</span>
-        <span class="font-sans text-sm font-medium hidden md:inline pr-2">Ask AI Concierge</span>
-    </button>
-
-    <!-- ✨ AI Wedding Concierge Chat Window ✨ -->
-    <div id="chat-window" class="chat-container chat-hidden fixed bottom-24 right-4 md:bottom-28 md:right-8 w-[calc(100vw-2rem)] md:w-96 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50 overflow-hidden flex flex-col h-[500px] max-h-[70vh]">
-        
-        <!-- Chat Header -->
-        <div class="bg-brand-traditional text-white p-4 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <span class="text-2xl">✨</span>
-                <div>
-                    <h3 class="font-serif font-medium text-lg">Wedding Concierge</h3>
-                    <p class="text-xs text-brand-accent font-sans">Powered by AI</p>
-                </div>
-            </div>
-            <button id="chat-close" class="text-white hover:text-brand-accent transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-
-        <!-- Chat Messages Area -->
-        <div id="chat-messages" class="flex-1 overflow-y-auto p-4 space-y-4 bg-gray-50 font-sans text-sm font-light">
-            <!-- Initial AI Greeting -->
-            <div class="flex flex-col items-start w-full">
-                <div class="max-w-[85%] bg-white border border-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm text-gray-700">
-                    Namaskaram! 🙏 I am the AI Wedding Concierge for Mridhul and Neha. How can I help you today? Ask me about the venues, dates, or family details!
-                </div>
-            </div>
-        </div>
-
-        <!-- Loading Indicator (Hidden by default) -->
-        <div id="chat-loading" class="hidden px-4 py-2 bg-gray-50 flex-col items-start w-full">
-            <div class="max-w-[85%] bg-white border border-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 shadow-sm text-gray-500 inline-block">
-                <div class="typing-indicator flex items-center h-4">
-                    <span></span><span></span><span></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Chat Input Area -->
-        <div class="p-3 bg-white border-t border-gray-100">
-            <form id="chat-form" class="flex items-center gap-2">
-                <input type="text" id="chat-input" placeholder="Ask a question..." class="flex-1 bg-gray-50 border border-gray-200 rounded-full px-4 py-2 focus:outline-none focus:border-brand-accent focus:ring-1 focus:ring-brand-accent transition text-sm text-brand-dark" autocomplete="off" required>
-                <button type="submit" class="bg-brand-traditional text-white p-2.5 rounded-full hover:bg-brand-accent transition shadow-md">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-                </button>
-            </form>
-        </div>
-    </div>
-
     <!-- Scripts -->
     <script>
         // --- 1. Scroll Animations ---
