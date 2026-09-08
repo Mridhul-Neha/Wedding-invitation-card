@@ -481,6 +481,20 @@
         <p>&copy; 2026 Mridhul & Neha. All Rights Reserved.</p>
     </footer>
 
+    <!-- 🎵 Audio Elements 🎵 -->
+    <audio id="bg-music" loop preload="auto">
+        <!-- REPLACE 'romantic_music.mp3' with your actual music file name if different -->
+        <source src="romantic_music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- 🎵 Music Toggle Button 🎵 -->
+    <button id="music-toggle" class="fixed bottom-6 left-6 md:bottom-8 md:left-8 bg-white/90 backdrop-blur-sm text-brand-traditional p-4 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 z-50 flex items-center justify-center border border-gray-200 group">
+        <!-- Play Icon -->
+        <svg id="music-icon-play" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+        <!-- Pause Icon -->
+        <svg id="music-icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+
     <!-- ✨ AI Wedding Concierge Floating Button ✨ -->
     <button id="chatbot-toggle" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-brand-traditional text-white p-4 rounded-full shadow-2xl hover:bg-brand-accent transition duration-300 z-50 flex items-center gap-2">
         <span class="text-xl">✨</span>
