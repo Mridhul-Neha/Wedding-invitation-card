@@ -573,25 +573,43 @@
             // Change image every 4 seconds (1s fade + 3s viewing time)
             setInterval(nextImage, 4000); 
         });
+        
+    // --- Music Toggle Logic ---
+    const musicToggleBtn = document.getElementById('music-toggle');
+    const bgMusic = document.getElementById('bg-music');
+    const playIcon = document.getElementById('music-icon-play');
+    const pauseIcon = document.getElementById('music-icon-pause');
 
-        // --- Music Toggle Logic ---
-const musicToggleBtn = document.getElementById('music-toggle');
-const bgMusic = document.getElementById('bg-music');
-const playIcon = document.getElementById('music-icon-play');
-const pauseIcon = document.getElementById('music-icon-pause');
+    musicToggleBtn.addEventListener('click', async () => {
+        try {
+            if (bgMusic.paused) {
+                await bgMusic.play();
 
-musicToggleBtn.addEventListener('click', () => {
-    if (bgMusic.paused) {
-        bgMusic.play();
+                playIcon.classList.add('hidden');
+                pauseIcon.classList.remove('hidden');
+            } else {
+                bgMusic.pause();
+
+                playIcon.classList.remove('hidden');
+                pauseIcon.classList.add('hidden');
+            }
+        } catch (error) {
+            console.error("Audio playback failed:", error);
+            alert("Unable to play the wedding music. Please check that the MP3 file is available.");
+        }
+    });
+
+    // Keep icon synchronized with actual audio state
+    bgMusic.addEventListener('play', () => {
         playIcon.classList.add('hidden');
         pauseIcon.classList.remove('hidden');
-    } else {
-        bgMusic.pause();
+    });
+
+    bgMusic.addEventListener('pause', () => {
         playIcon.classList.remove('hidden');
         pauseIcon.classList.add('hidden');
-    }
-});
-
+    });
+        
         // --- 2. ✨ Gemini AI Concierge Logic ✨ ---
         const apiKey = ""; // API Key is injected by the execution environment
         const modelEndpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
