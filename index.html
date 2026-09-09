@@ -498,11 +498,14 @@
 
     <!-- 🎵 Music Toggle Button 🎵 -->
     <button id="music-toggle" class="fixed bottom-6 left-6 md:bottom-8 md:left-8 bg-white/90 backdrop-blur-sm text-brand-traditional p-4 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 z-50 flex items-center justify-center border border-gray-200 group">
-        <!-- Play Icon -->
-        <svg id="music-icon-play" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-        <!-- Pause Icon -->
-        <svg id="music-icon-pause" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-    </button>
+     <!-- Play Icon -->
+<svg id="music-icon-play" class="w-7 h-7 drop-shadow-md transition-transform duration-300 group-hover:scale-110" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <path fill-rule="evenodd" d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z" clip-rule="evenodd" />
+</svg>
+      <!-- Pause Icon -->
+<svg id="music-icon-pause" class="w-7 h-7 hidden drop-shadow-md transition-transform duration-300 group-hover:scale-110" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+  <path fill-rule="evenodd" d="M6.75 5.25a.75.75 0 01.75-.75H9a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75H7.5a.75.75 0 01-.75-.75V5.25zm7.5 0a.75.75 0 01.75-.75h1.5a.75.75 0 01.75.75v13.5a.75.75 0 01-.75.75h-1.5a.75.75 0 01-.75-.75V5.25z" clip-rule="evenodd" />
+</svg>
 
     <!-- ✨ AI Wedding Concierge Floating Button ✨ -->
     <button id="chatbot-toggle" class="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-brand-traditional text-white p-4 rounded-full shadow-2xl hover:bg-brand-accent transition duration-300 z-50 flex items-center gap-2">
