@@ -255,11 +255,14 @@
                 <span class="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-600 mt-2 font-medium">Seconds</span>
             </div>
         </div>
-        <div class="z-10">
-            <a href="#events" class="inline-block border border-brand-accent text-brand-accent px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent hover:text-white transition duration-300 rounded-full shadow-sm hover:shadow-md bg-white/50 backdrop-blur-sm">
-                Event Details
-            </a>
-        </div>
+        <div class="z-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+    <button id="open-rsvp-btn" class="inline-block bg-brand-traditional text-white px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent transition duration-300 rounded-full shadow-md">
+        RSVP Now
+    </button>
+    <a href="#events" class="inline-block border border-brand-accent text-brand-accent px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent hover:text-white transition duration-300 rounded-full shadow-sm hover:shadow-md bg-white/50 backdrop-blur-sm">
+        Event Details
+    </a>
+</div>
     </header>
 
     <!-- The Couple Section -->
@@ -594,7 +597,43 @@
             </form>
         </div>
     </div>
-
+<!-- RSVP Modal -->
+<div id="rsvp-modal" class="fixed inset-0 z-[200] hidden bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 transition-opacity duration-300 opacity-0">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 border border-brand-accent/20">
+        <div class="bg-brand-primary p-6 text-center relative">
+            <h2 class="font-serif text-3xl text-brand-accent mb-1">RSVP</h2>
+            <p class="font-sans text-white/80 text-xs uppercase tracking-widest">We'd love to see you there</p>
+            <button id="close-rsvp" class="absolute top-4 right-4 text-white hover:text-brand-accent transition">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <form id="rsvp-form" class="p-8 space-y-5">
+            <div>
+                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Name(s)</label>
+                <input type="text" name="name" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="John & Jane Doe">
+            </div>
+            <div>
+                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Will you attend?</label>
+                <select name="attendance" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent text-gray-700">
+                    <option value="Yes, joyfully accept">Yes, joyfully accept</option>
+                    <option value="Regretfully decline">Regretfully decline</option>
+                </select>
+            </div>
+            <div>
+                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Number of Guests</label>
+                <input type="number" name="guests" min="1" max="10" value="1" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent">
+            </div>
+            <div>
+                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Leave a Message</label>
+                <textarea name="message" rows="3" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="Warm wishes for the couple..."></textarea>
+            </div>
+            <button type="submit" id="rsvp-submit-btn" class="w-full bg-brand-traditional text-white py-4 rounded-full hover:bg-brand-accent transition duration-300 font-sans tracking-[0.2em] uppercase text-xs shadow-md mt-4">
+                Send RSVP
+            </button>
+            <p id="rsvp-status" class="text-center font-sans text-sm mt-4 hidden"></p>
+        </form>
+    </div>
+</div>
     <!-- Scripts -->
     <script>
         // --- 1. Scroll Animations ---
@@ -830,7 +869,67 @@
             
             appendMessage('model', aiResponse);
         });
+// --- RSVP Modal & Google Sheets Logic ---
+const rsvpBtn = document.getElementById('open-rsvp-btn');
+const rsvpModal = document.getElementById('rsvp-modal');
+const closeRsvpBtn = document.getElementById('close-rsvp');
+const rsvpForm = document.getElementById('rsvp-form');
+const rsvpStatus = document.getElementById('rsvp-status');
 
+// PASTE YOUR GOOGLE SCRIPT URL HERE:
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwyYx9X1r5Uf0Jq60dkUGtPrPBtUr2IIXnhPF2QOtmwXmMi-A5T02h6HQHT9xm4zHW1SQ/exec';
+
+rsvpBtn.addEventListener('click', () => {
+    rsvpModal.classList.remove('hidden');
+    setTimeout(() => {
+        rsvpModal.classList.remove('opacity-0');
+        rsvpModal.firstElementChild.classList.remove('scale-95');
+    }, 10);
+});
+
+function closeRsvpModal() {
+    rsvpModal.classList.add('opacity-0');
+    rsvpModal.firstElementChild.classList.add('scale-95');
+    setTimeout(() => {
+        rsvpModal.classList.add('hidden');
+        rsvpStatus.classList.add('hidden'); 
+        rsvpForm.reset();
+    }, 300);
+}
+
+closeRsvpBtn.addEventListener('click', closeRsvpModal);
+rsvpModal.addEventListener('click', (e) => {
+    if(e.target === rsvpModal) closeRsvpModal();
+});
+
+rsvpForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('rsvp-submit-btn');
+    submitBtn.innerText = 'Sending...';
+    submitBtn.disabled = true;
+
+    const formData = new FormData(rsvpForm);
+
+    fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        submitBtn.innerText = 'Send RSVP';
+        submitBtn.disabled = false;
+        rsvpStatus.classList.remove('hidden');
+        rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-green-600';
+        rsvpStatus.innerText = 'Thank you! Your RSVP has been received. 🎉';
+        setTimeout(closeRsvpModal, 3000);
+    })
+    .catch(error => {
+        submitBtn.innerText = 'Send RSVP';
+        submitBtn.disabled = false;
+        rsvpStatus.classList.remove('hidden');
+        rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-red-600';
+        rsvpStatus.innerText = 'Oops! Something went wrong. Please try again.';
+    });
+});
     </script>
 </body>
 </html>
