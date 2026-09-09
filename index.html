@@ -151,8 +151,18 @@
         }
     </style>
 </head>
-<body class="bg-minimal text-brand-dark antialiased font-sans selection:bg-brand-accent selection:text-white relative">
+<body class="bg-minimal text-brand-dark antialiased font-sans selection:bg-brand-accent selection:text-white relative overflow-hidden">
 
+    <!-- Welcome Overlay -->
+    <div id="welcome-overlay" class="fixed inset-0 bg-brand-surface z-[100] flex flex-col items-center justify-center text-center px-4 transition-opacity duration-1000">
+        <h2 class="font-serif text-3xl md:text-5xl text-brand-primary mb-6">Mridhul & Neha</h2>
+        <p class="font-sans text-gray-500 mb-8 uppercase tracking-widest text-sm">Are getting married</p>
+        <button id="open-invitation-btn" class="bg-brand-traditional text-white px-10 py-4 rounded-full hover:bg-brand-accent transition duration-300 font-sans tracking-[0.2em] uppercase text-xs shadow-xl flex items-center gap-3">
+            Open Invitation
+            <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+        </button>
+    </div>
+    
     <!-- Hero Section -->
     <header class="min-h-screen flex flex-col items-center justify-center bg-brand-surface relative overflow-hidden px-4 py-16 text-center border-b border-gray-100">
         
@@ -572,6 +582,28 @@
 
             // Change image every 3 seconds (1s fade + 3s viewing time)
             setInterval(nextImage, 4000); 
+        });
+
+        // --- Welcome Overlay & Auto-Play Logic ---
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const openBtn = document.getElementById('open-invitation-btn');
+        
+        openBtn.addEventListener('click', async () => {
+            // 1. Play the music
+            try {
+                await document.getElementById('bg-music').play();
+            } catch (err) {
+                console.log("Audio autoplay blocked or failed:", err);
+            }
+            
+            // 2. Fade out the overlay
+            welcomeOverlay.style.opacity = '0';
+            
+            // 3. Remove overlay from DOM and allow scrolling
+            setTimeout(() => {
+                welcomeOverlay.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+            }, 1000);
         });
         
     // --- Music Toggle Logic ---
