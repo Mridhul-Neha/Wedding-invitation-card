@@ -236,7 +236,25 @@
         <p class="font-serif text-lg md:text-xl max-w-2xl mx-auto italic text-gray-600 px-4 mb-12 z-10">
             "We cordially invite you to grace us with your esteemed presence along with your family for the wedding and reception of our beloved son."
         </p>
-        
+        <!-- Live Countdown Timer -->
+        <div id="countdown" class="flex flex-wrap justify-center gap-6 md:gap-12 my-10 z-10 bg-white/40 backdrop-blur-sm py-6 px-8 rounded-2xl shadow-sm border border-brand-accent/20">
+            <div class="flex flex-col items-center">
+                <span id="cd-days" class="font-serif text-4xl md:text-5xl text-brand-traditional drop-shadow-sm">00</span>
+                <span class="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-600 mt-2 font-medium">Days</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span id="cd-hours" class="font-serif text-4xl md:text-5xl text-brand-traditional drop-shadow-sm">00</span>
+                <span class="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-600 mt-2 font-medium">Hours</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span id="cd-minutes" class="font-serif text-4xl md:text-5xl text-brand-traditional drop-shadow-sm">00</span>
+                <span class="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-600 mt-2 font-medium">Minutes</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <span id="cd-seconds" class="font-serif text-4xl md:text-5xl text-brand-traditional drop-shadow-sm">00</span>
+                <span class="font-sans text-[10px] md:text-xs uppercase tracking-[0.2em] text-gray-600 mt-2 font-medium">Seconds</span>
+            </div>
+        </div>
         <div class="z-10">
             <a href="#events" class="inline-block border border-brand-accent text-brand-accent px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent hover:text-white transition duration-300 rounded-full shadow-sm hover:shadow-md bg-white/50 backdrop-blur-sm">
                 Event Details
@@ -587,7 +605,29 @@
             // Change image every 3 seconds (1s fade + 3s viewing time)
             setInterval(nextImage, 4000); 
         });
+// --- Countdown Timer Logic ---
+        const targetDate = new Date("November 15, 2026 00:00:00").getTime();
 
+        const countdownInterval = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("countdown").innerHTML = "<div class='font-serif text-2xl text-brand-traditional py-4'>The Big Day is Here! 🎉</div>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("cd-days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("cd-hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("cd-minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("cd-seconds").innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
         // --- Welcome Overlay & Auto-Play Logic ---
         const welcomeOverlay = document.getElementById('welcome-overlay');
         const openBtn = document.getElementById('open-invitation-btn');
