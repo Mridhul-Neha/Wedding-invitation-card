@@ -817,16 +817,14 @@
         // Call Gemini API with Exponential Backoff
         async function fetchGeminiResponse(userText) {
             // For preview purposes, if no API key is provided, we mock a response
-            if (!apiKey) {
-                return new Promise(resolve => {
-                    setTimeout(() => {
-                        let response = "I'm currently running in preview mode! But I can tell you the wedding is on Sunday, 15th November 2026! ✨";
-                        if(userText.toLowerCase().includes('reception')) response = "The reception is on Monday, 16th November 2026, from 5:00 PM to 10:00 PM at Matrona Auditorium, Mankave, Kozhikode. 🎊";
-                        if(userText.toLowerCase().includes('venue')) response = "The wedding venue is Sreekrishna Mandiram Auditorium, Puthiyatheru, Kannur. 🏛️";
-                        resolve(response);
-                    }, 1500);
-                });
-            }
+           chatHistory.push({ role: "user", parts: [{ text: userText }] });
+
+    const payload = {
+        contents: chatHistory,
+        systemInstruction: {
+            parts: [{ text: systemPrompt }]
+        }
+    };
 
             chatHistory.push({ role: "user", parts: [{ text: userText }] });
 
