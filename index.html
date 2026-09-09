@@ -631,23 +631,29 @@
             document.getElementById("cd-minutes").innerText = minutes.toString().padStart(2, '0');
             document.getElementById("cd-seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
+        
         // --- Welcome Overlay & Auto-Play Logic ---
-        const welcomeOverlay = document.getElementById('welcome-overlay');
-        const openBtn = document.getElementById('open-invitation-btn').addEventListener('click', async () => {
-    try {
-        await document.getElementById('bg-music').play();
-    } catch (err) {
-        console.log("Audio autoplay blocked or failed:", err);
-    }
-    
-    const welcomeOverlay = document.getElementById('welcome-overlay');
-    welcomeOverlay.style.opacity = '0';
-    
-    setTimeout(() => {
-        welcomeOverlay.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-    }, 1000);
-});
+const welcomeOverlay = document.getElementById('welcome-overlay');
+const openBtn = document.getElementById('open-invitation-btn');
+
+if (openBtn) {
+    openBtn.addEventListener('click', async () => {
+        try {
+            const bgMusic = document.getElementById('bg-music');
+            if (bgMusic) {
+                await bgMusic.play();
+            }
+        } catch (err) {
+            console.log("Audio autoplay blocked or failed:", err);
+        }
+        
+        welcomeOverlay.style.opacity = '0';
+        setTimeout(() => {
+            welcomeOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }, 1000);
+    });
+}
         
     // --- Music Toggle Logic ---
     const musicToggleBtn = document.getElementById('music-toggle');
