@@ -152,15 +152,22 @@
 </head>
 <body class="bg-minimal text-brand-dark antialiased font-sans selection:bg-brand-accent selection:text-white relative overflow-hidden">
 
-    <!-- Welcome Overlay -->
-    <div id="welcome-overlay" class="fixed inset-0 bg-brand-surface z-[100] flex flex-col items-center justify-center text-center px-4 transition-opacity duration-1000">
-        <h2 class="font-serif text-3xl md:text-5xl text-brand-primary mb-6">Mridhul & Neha</h2>
-        <p class="font-sans text-gray-500 mb-8 uppercase tracking-widest text-sm">Are getting married</p>
-        <button id="open-invitation-btn" class="bg-brand-traditional text-white px-10 py-4 rounded-full hover:bg-brand-accent transition duration-300 font-sans tracking-[0.2em] uppercase text-xs shadow-xl flex items-center gap-3">
-            Open Invitation
-            <svg class="w-4 h-4 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+   <!-- Welcome Overlay -->
+<div id="welcome-overlay" class="fixed inset-0 bg-gradient-to-br from-rose-50 via-white to-amber-50 z-[100] flex flex-col items-center justify-center text-center px-6 transition-all duration-1000 ease-in-out">
+    <div class="relative max-w-lg w-full p-8 md:p-12 border border-brand-accent/20 rounded-2xl shadow-2xl bg-white/80 backdrop-blur-md flex flex-col items-center">
+        <!-- Decorative subtle top icon or heart accent -->
+        <span class="text-brand-accent text-2xl mb-3">❤️</span>
+        <p class="font-sans text-brand-accent uppercase tracking-[0.3em] text-xs mb-3 font-medium">The Wedding Invitation of</p>
+        <h2 class="font-serif text-4xl md:text-6xl text-brand-primary mb-4 tracking-wide font-normal">Mridhul <span class="text-brand-accent text-3xl md:text-5xl font-light">&amp;</span> Neha</h2>
+        <p class="font-serif italic text-gray-600 mb-8 text-sm md:text-base max-w-xs">"Two lives, two hearts, joined together in friendship, united forever in love."</p>
+        <button id="open-invitation-btn" class="group relative inline-flex items-center gap-3 px-10 py-4 overflow-hidden rounded-full bg-brand-traditional text-white font-sans tracking-[0.2em] uppercase text-xs shadow-xl transition-all duration-500 hover:bg-brand-accent hover:scale-105">
+            <span class="relative z-10">Open Invitation</span>
+            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+            </svg>
         </button>
     </div>
+</div>
     
     <!-- Hero Section -->
     <header class="min-h-screen flex flex-col items-center justify-center bg-brand-surface relative overflow-hidden px-4 py-16 text-center border-b border-gray-100">
@@ -629,27 +636,27 @@
         }, 1000);
 
         // --- Welcome Overlay & Auto-Play Logic ---
-    const welcomeOverlay = document.getElementById('welcome-overlay');
-    const openBtn = document.getElementById('open-invitation-btn');
-    
-    if (openBtn && welcomeOverlay) {
-        openBtn.addEventListener('click', async () => {
-            try {
-                const bgMusic = document.getElementById('bg-music');
-                if (bgMusic) {
-                    await bgMusic.play();
-                }
-            } catch (err) {
-                console.log("Audio autoplay blocked or failed:", err);
-            }
-            
-            welcomeOverlay.style.opacity = '0';
-            setTimeout(() => {
-                welcomeOverlay.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-            }, 1000);
-        });
+const openBtn = document.getElementById('open-invitation-btn');
+const welcomeOverlay = document.getElementById('welcome-overlay');
+const bgMusic = document.getElementById('bg-music');
+
+openBtn.addEventListener('click', async () => {
+    try {
+        await bgMusic.play();
+    } catch (err) {
+        console.log("Audio autoplay blocked or failed:", err);
     }
+    
+    // Smooth opening animation: fade out and slightly scale up the welcome overlay (1s = 1000ms)
+    welcomeOverlay.style.opacity = '0';
+    welcomeOverlay.style.transform = 'scale(1.05)';
+    welcomeOverlay.style.transition = 'all 1s ease-in-out';
+    
+    setTimeout(() => {
+        welcomeOverlay.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+    }, 1000);
+});
         
     // --- Music Toggle Logic ---
     const musicToggleBtn = document.getElementById('music-toggle');
