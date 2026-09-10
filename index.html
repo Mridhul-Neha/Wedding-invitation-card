@@ -636,28 +636,28 @@
         }, 1000);
 
         // --- Welcome Overlay & Auto-Play Logic ---
-const openBtn = document.getElementById('open-invitation-btn');
-const welcomeOverlay = document.getElementById('welcome-overlay');
-const bgMusic = document.getElementById('bg-music');
-
-openBtn.addEventListener('click', async () => {
-    try {
-        await bgMusic.play();
-    } catch (err) {
-        console.log("Audio autoplay blocked or failed:", err);
-    }
+    const openBtn = document.getElementById('open-invitation-btn');
+    const welcomeOverlay = document.getElementById('welcome-overlay');
+    const bgMusic = document.getElementById('bg-music');
     
-    // Smooth opening animation: fade out and slightly scale up the welcome overlay (1s = 1000ms)
-    welcomeOverlay.style.opacity = '0';
-    welcomeOverlay.style.transform = 'scale(1.05)';
-    welcomeOverlay.style.transition = 'all 1s ease-in-out';
-    
-    setTimeout(() => {
-        welcomeOverlay.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-    }, 1000);
-});
+    openBtn.addEventListener('click', async () => {
+        try {
+            await bgMusic.play();
+        } catch (err) {
+            console.log("Audio autoplay blocked or failed:", err);
+        }
         
+        // Trigger smooth fade out and scale up animation
+        welcomeOverlay.style.transition = 'all 1s ease-in-out';
+        welcomeOverlay.style.opacity = '0';
+        welcomeOverlay.style.transform = 'scale(1.05)';
+        
+        // Wait for the 1-second transition to finish before hiding completely
+        setTimeout(() => {
+            welcomeOverlay.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+        }, 1000);
+    });
     // --- Music Toggle Logic ---
     const musicToggleBtn = document.getElementById('music-toggle');
     const bgMusic = document.getElementById('bg-music');
