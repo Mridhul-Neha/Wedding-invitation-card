@@ -569,16 +569,20 @@
 </div>
     <!-- Scripts -->
     <script>
-        // --- 1. Scroll Animations ---
-        document.addEventListener("DOMContentLoaded", function() {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    }
-                });
-            }, { threshold: 0.15 });
-            document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
+        // --- 1. Scroll Animations & Reset to Top on Reload ---
+document.addEventListener("DOMContentLoaded", function() {
+    // Force page to always start at the top on reload
+    window.scrollTo(0, 0);
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+            }
+        });
+    }, { threshold: 0.15 });
+    
+    document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
             
             // --- Slideshow Logic ---
             const images = document.querySelectorAll('.slideshow-image');
