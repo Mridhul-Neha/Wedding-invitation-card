@@ -36,6 +36,28 @@
         }
     </script>
     <style>
+        @keyframes fall {
+    0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(105vh) rotate(360deg) translateX(50px);
+        opacity: 0.2;
+    }
+}
+
+.falling-petal {
+    position: fixed;
+    top: -50px;
+    z-index: 101;
+    user-select: none;
+    pointer-events: none;
+    background-color: #e11d48;
+    border-radius: 150% 0 150% 0;
+    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+    animation: fall linear forwards;
+}
         /* Custom Animations */
         .fade-in-section {
             opacity: 0;
@@ -635,30 +657,55 @@
             document.getElementById("cd-seconds").innerText = seconds.toString().padStart(2, '0');
         }, 1000);
 
-        // --- Welcome Overlay & Auto-Play Logic ---
-        const openBtn = document.getElementById('open-invitation-btn');
-        const welcomeOverlay = document.getElementById('welcome-overlay');
-        const bgMusic = document.getElementById('bg-music');
+        // --- Welcome Overlay, Rose Petals, & Auto-Play Logic ---
+const openBtn = document.getElementById('open-invitation-btn');
+const welcomeOverlay = document.getElementById('welcome-overlay');
+const bgMusic = document.getElementById('bg-music');
+
+openBtn.addEventListener('click', async () => {
+    try {
+        await bgMusic.play();
+    } catch (err) {
+        console.log("Audio autoplay blocked or failed:", err);
+    }
+    
+    // Create falling red rose petals animation effect during transition
+    const petalCount = 25;
+    for (let i = 0; i < petalCount; i++) {
+        const petal = document.createElement('div');
+        petal.classList.add('falling-petal');
         
-        openBtn.addEventListener('click', async () => {
-            try {
-                await bgMusic.play();
-            } catch (err) {
-                console.log("Audio autoplay blocked or failed:", err);
-            }
-            
-            // Trigger smooth fade out and scale up animation
-            welcomeOverlay.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
-            welcomeOverlay.style.opacity = '0';
-            welcomeOverlay.style.transform = 'scale(1.05)';
-            welcomeOverlay.style.pointerEvents = 'none';
-            
-            // Completely hide and remove from layout after 1 second
-            setTimeout(() => {
-                welcomeOverlay.style.display = 'none';
-                document.body.classList.remove('overflow-hidden');
-            }, 1000);
-        });
+        // Randomize size, horizontal position, speed, and delay
+        const size = Math.random() * 12 + 10;
+        petal.style.width = `${size}px`;
+        petal.style.height = `${size * 1.4}px`;
+        petal.style.left = `${Math.random() * 100}vw`;
+        
+        const duration = Math.random() * 0.6 + 0.8; // 0.8s to 1.4s
+        const delay = Math.random() * 0.3;
+        petal.style.animationDuration = `${duration}s`;
+        petal.style.animationDelay = `${delay}s`;
+        
+        document.body.appendChild(petal);
+        
+        // Clean up petals after animation completes
+        setTimeout(() => {
+            petal.remove();
+        }, (duration + delay) * 1000);
+    }
+    
+    // Trigger smooth fade out and scale up animation
+    welcomeOverlay.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
+    welcomeOverlay.style.opacity = '0';
+    welcomeOverlay.style.transform = 'scale(1.05)';
+    welcomeOverlay.style.pointerEvents = 'none';
+    
+    // Completely hide and remove from layout after 1 second
+    setTimeout(() => {
+        welcomeOverlay.style.display = 'none';
+        document.body.classList.remove('overflow-hidden');
+    }, 1000);
+});
     // --- Music Toggle Logic ---
     const musicToggleBtn = document.getElementById('music-toggle');
     const playIcon = document.getElementById('music-icon-play');
