@@ -759,7 +759,22 @@ rsvpForm.addEventListener('submit', (e) => {
 <footer class="bg-brand-surface border-t border-gray-100 text-gray-400 py-8 text-center font-sans text-xs tracking-wider uppercase mb-16 md:mb-0">
     <p>&copy; 2026 Mridhul &amp; Neha. All Rights Reserved.</p>
 </footer>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const openBtn = document.querySelector('button');
+        const welcomeCover = document.querySelector('.fixed.inset-0'); // Targets your full-screen cover overlay
 
+        if (openBtn && welcomeCover) {
+            openBtn.addEventListener('click', () => {
+                welcomeCover.style.opacity = '0';
+                welcomeCover.style.transition = 'opacity 0.6s ease';
+                setTimeout(() => {
+                    welcomeCover.style.display = 'none';
+                }, 600);
+            });
+        }
+    });
+</script>
 </script>
 </body>
 </html>
