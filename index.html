@@ -10,6 +10,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Great+Vibes&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    
     <!-- 👉 ADD TAILWIND SCRIPT HERE -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -35,29 +36,31 @@
             }
         }
     </script>
+    
     <style>
         @keyframes fall {
-    0% {
-        transform: translateY(-10vh) rotate(0deg) translateX(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(105vh) rotate(360deg) translateX(50px);
-        opacity: 0.2;
-    }
-}
+            0% {
+                transform: translateY(-10vh) rotate(0deg) translateX(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(105vh) rotate(360deg) translateX(50px);
+                opacity: 0.2;
+            }
+        }
 
-.falling-petal {
-    position: fixed;
-    top: -50px;
-    z-index: 101;
-    user-select: none;
-    pointer-events: none;
-    background-color: #e11d48;
-    border-radius: 150% 0 150% 0;
-    box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
-    animation: fall linear forwards;
-}
+        .falling-petal {
+            position: fixed;
+            top: -50px;
+            z-index: 101;
+            user-select: none;
+            pointer-events: none;
+            background-color: #e11d48;
+            border-radius: 150% 0 150% 0;
+            box-shadow: inset -2px -2px 4px rgba(0, 0, 0, 0.1);
+            animation: fall linear forwards;
+        }
+
         /* Custom Animations */
         .fade-in-section {
             opacity: 0;
@@ -114,7 +117,7 @@
             object-fit: cover;
             object-position: top;
             opacity: 0;
-            transition: opacity 1s ease-in-out, transform 8s ease-in-out; /* Smooth fade and slight zoom */
+            transition: opacity 1.5s ease-in-out, transform 8s ease-in-out; /* Smooth fade and slight zoom */
             z-index: 10;
             transform: scale(1);
         }
@@ -170,26 +173,44 @@
             0%, 80%, 100% { transform: scale(0); }
             40% { transform: scale(1); }
         }
+        
+        /* Wax Seal Opening Animation */
+        .wax-seal {
+            box-shadow: 0 4px 6px -1px rgba(139, 28, 43, 0.4), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+        .envelope-card {
+            transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1), opacity 1s ease;
+        }
+        .envelope-open-anim {
+            transform: translateY(-50px) scale(1.05);
+            opacity: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-minimal text-brand-dark antialiased font-sans selection:bg-brand-accent selection:text-white relative overflow-hidden">
 
-   <!-- Welcome Overlay -->
-<div id="welcome-overlay" class="fixed inset-0 bg-gradient-to-br from-rose-50 via-white to-amber-50 z-[100] flex flex-col items-center justify-center text-center px-6 transition-all duration-1000 ease-in-out">
-    <div class="relative max-w-lg w-full p-8 md:p-12 border border-brand-accent/20 rounded-2xl shadow-2xl bg-white/80 backdrop-blur-md flex flex-col items-center">
-        <!-- Decorative subtle top icon or heart accent -->
-        <span class="text-brand-accent text-2xl mb-3">❤️</span>
-        <p class="font-sans text-brand-accent uppercase tracking-[0.3em] text-xs mb-3 font-medium">The Wedding Invitation of</p>
-        <h2 class="font-serif text-4xl md:text-6xl text-brand-primary mb-4 tracking-wide font-normal">Mridhul <span class="text-brand-accent text-3xl md:text-5xl font-light">&amp;</span> Neha</h2>
-        <p class="font-serif italic text-gray-600 mb-8 text-sm md:text-base max-w-xs">"Two lives, two hearts, joined together in friendship, united forever in love."</p>
-        <button id="open-invitation-btn" class="group relative inline-flex items-center gap-3 px-10 py-4 overflow-hidden rounded-full bg-brand-traditional text-white font-sans tracking-[0.2em] uppercase text-xs shadow-xl transition-all duration-500 hover:bg-brand-accent hover:scale-105">
-            <span class="relative z-10">Open Invitation</span>
-            <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-            </svg>
-        </button>
+    <!-- Welcome Overlay (Premium Envelope Style) -->
+    <div id="welcome-overlay" class="fixed inset-0 bg-[#FDFBF7] z-[100] flex flex-col items-center justify-center text-center px-6 transition-all duration-1000 ease-in-out">
+        <div id="envelope-card" class="envelope-card relative max-w-md w-full p-10 md:p-14 border border-brand-accent/30 rounded-t-[3rem] rounded-b-md shadow-2xl bg-white flex flex-col items-center">
+            <!-- Elegant Wax Seal -->
+            <div class="absolute -top-10 w-20 h-20 bg-brand-traditional rounded-full flex items-center justify-center text-brand-accent font-serif text-3xl shadow-xl border border-brand-traditional ring-8 ring-[#FDFBF7] wax-seal z-10">
+                M<span class="text-xl mx-1 font-light">&</span>N
+            </div>
+            
+            <p class="font-sans text-brand-accent uppercase tracking-[0.3em] text-xs mb-5 mt-6 font-medium">You are invited</p>
+            <h2 class="font-serif text-4xl md:text-5xl text-brand-primary mb-4 tracking-wide font-normal">Mridhul <br><span class="text-brand-accent text-3xl font-light italic">&amp;</span><br> Neha</h2>
+            <div class="w-12 h-[1px] bg-brand-accent/50 mb-4"></div>
+            <p class="font-serif italic text-gray-600 mb-10 text-sm md:text-base tracking-wide">15 • 16 November 2026</p>
+            
+            <button id="open-invitation-btn" class="group relative inline-flex items-center gap-3 px-8 py-4 overflow-hidden rounded-full bg-brand-traditional text-white font-sans tracking-[0.2em] uppercase text-xs shadow-xl transition-all duration-500 hover:bg-brand-accent hover:scale-105">
+                <span class="relative z-10">Open Invitation</span>
+                <svg class="w-4 h-4 transition-transform duration-300 group-hover:translate-y-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </button>
+        </div>
     </div>
-</div>
     
     <!-- Hero Section -->
     <header class="min-h-screen flex flex-col items-center justify-center bg-brand-surface relative overflow-hidden px-4 py-16 text-center border-b border-gray-100">
@@ -239,12 +260,12 @@
             <!-- Main Image Mask with Slideshow -->
             <div class="absolute inset-0 hero-image-mask shadow-2xl border-4 border-white/50 bg-gray-100 overflow-hidden">
                 <div class="slideshow-container">
-                    <img src="our couple photo.png" class="slideshow-image active">
-                    <img src="Onam.jpeg" class="slideshow-image">
-                    <img src="Sravan marriage.jpeg" class="slideshow-image">
-                    <img src="Pooja marriage.jpeg" class="slideshow-image">
-                    <img src="Pooja haldi.jpeg" class="slideshow-image">
-                    <img src="Engagement.jpeg" class="slideshow-image">
+                    <img src="our couple photo.png" alt="Mridhul and Neha" class="slideshow-image active">
+                    <img src="Onam.jpeg" alt="Onam Celebration" class="slideshow-image">
+                    <img src="Sravan marriage.jpeg" alt="Sravan Marriage" class="slideshow-image">
+                    <img src="Pooja marriage.jpeg" alt="Pooja Marriage" class="slideshow-image">
+                    <img src="Pooja haldi.jpeg" alt="Pooja Haldi" class="slideshow-image">
+                    <img src="Engagement.jpeg" alt="Engagement Ceremony" class="slideshow-image">
                 </div>
                 
                 <div class="absolute inset-0 bg-brand-primary opacity-[0.05] mix-blend-overlay pointer-events-none z-20"></div>
@@ -262,7 +283,7 @@
         </div>
 
         <p class="font-serif text-lg md:text-xl max-w-2xl mx-auto italic text-gray-600 px-4 mb-12 z-10">
-            "We cordially invite you to grace us with your esteemed presence along with your family for the wedding and reception of our beloved son."
+            "Together with our families, we cordially invite you to grace the occasion of our wedding and reception with your presence and blessings."
         </p>
         <!-- Live Countdown Timer -->
         <div id="countdown" class="flex flex-wrap justify-center gap-6 md:gap-12 my-10 z-10 bg-white/40 backdrop-blur-sm py-6 px-8 rounded-2xl shadow-sm border border-brand-accent/20">
@@ -284,10 +305,10 @@
             </div>
         </div>
         <div class="z-10 flex justify-center items-center">
-    <a href="#events" class="inline-block border border-brand-accent text-brand-accent px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent hover:text-white transition duration-300 rounded-full shadow-sm hover:shadow-md bg-white/50 backdrop-blur-sm">
-        Event Details
-    </a>
-</div>
+            <a href="#events" class="inline-block border border-brand-accent text-brand-accent px-10 py-4 uppercase tracking-[0.2em] font-sans text-xs hover:bg-brand-accent hover:text-white transition duration-300 rounded-full shadow-sm hover:shadow-md bg-white/50 backdrop-blur-sm">
+                Event Details
+            </a>
+        </div>
     </header>
 
     <!-- The Couple Section -->
@@ -307,23 +328,28 @@
 
             <!-- Groom -->
             <div class="flex flex-col items-center">
-                <h3 class="font-serif text-2xl md:text-3xl text-brand-traditional mb-6">Mridhul Krishna KM</h3>
-                <div class="text-sm md:text-base text-gray-600 space-y-4 font-light leading-relaxed">
-                    <p><span class="font-medium text-brand-primary uppercase tracking-wider text-xs block mb-1">Grandson Of</span> Kanaka Sundari & Late Chandhrasekharan pillai K V <br> Krishnaveni G & N. Velayudhan Pillai</p>
-                    <div class="w-8 h-px bg-brand-accent/50 mx-auto"></div>
-                    <p><span class="font-medium text-brand-primary uppercase tracking-wider text-xs block mb-1">Son Of</span> Mrs Meenambika V & Mr. Muralidharan KC</p>
+                <h3 class="font-serif text-2xl md:text-3xl text-brand-traditional mb-6">Mridhul Krishna K.M.</h3>
+                <div class="text-sm md:text-base text-gray-600 space-y-2 font-light leading-relaxed text-center">
+                    <p class="font-sans text-[10px] uppercase tracking-widest text-brand-accent font-bold">Son of</p>
+                    <p class="font-medium text-brand-primary">Mrs. Meenambika V & Mr. Muralidharan K.C.</p>
                 </div>
             </div>
 
             <!-- Bride -->
             <div class="flex flex-col items-center">
-                <h3 class="font-serif text-2xl md:text-3xl text-brand-traditional mb-6">Neha PP</h3>
-                <div class="text-sm md:text-base text-gray-600 space-y-4 font-light leading-relaxed">
-                    <p><span class="font-medium text-brand-primary uppercase tracking-wider text-xs block mb-1">Daughter Of</span> Late Sunil Kumar P & Mrs Soniya K</p>
-                    <div class="w-8 h-px bg-brand-accent/50 mx-auto"></div>
+                <h3 class="font-serif text-2xl md:text-3xl text-brand-traditional mb-6">Neha P.P.</h3>
+                <div class="text-sm md:text-base text-gray-600 space-y-2 font-light leading-relaxed text-center">
+                    <p class="font-sans text-[10px] uppercase tracking-widest text-brand-accent font-bold">Daughter of</p>
+                    <p class="font-medium text-brand-primary">Late Sunil Kumar P & Mrs. Soniya K</p>
+                    <div class="w-8 h-px bg-brand-accent/50 mx-auto my-3"></div>
                     <p class="uppercase tracking-wider text-xs text-brand-primary font-medium">Pallikunnu, Kannur</p>
                 </div>
             </div>
+        </div>
+        
+        <div class="mt-16 pt-8 border-t border-brand-accent/20">
+             <p class="font-sans text-[10px] uppercase tracking-widest text-brand-accent font-bold mb-2">With the blessings of our grandparents</p>
+             <p class="font-medium text-gray-600 text-sm">Kanaka Sundari & Late Chandhrasekharan Pillai K.V. <br> Krishnaveni G & N. Velayudhan Pillai</p>
         </div>
     </div>
 
@@ -354,8 +380,9 @@
                         
                         <div class="space-y-5 py-6 border-y border-brand-accent/30 my-4 bg-white/60 backdrop-blur-sm rounded-2xl shadow-sm">
                             <div>
-                                <p class="font-sans text-xs uppercase tracking-widest text-brand-accent font-bold mb-1">Date</p>
+                                <p class="font-sans text-xs uppercase tracking-widest text-brand-accent font-bold mb-1">Date & Time</p>
                                 <p class="font-serif text-2xl text-gray-800 font-medium">Sunday, 15th November 2026</p>
+                                <p class="font-sans text-sm text-brand-traditional mt-2 font-bold tracking-wider">Muhurtham: 9:00 AM to 10:00 AM</p>
                             </div>
                             <div>
                                 <p class="font-sans text-xs uppercase tracking-widest text-brand-accent font-bold mb-1">Venue</p>
@@ -413,171 +440,178 @@
     </section>
 
     <!-- Love Story Roadmap Section -->
-   <!-- Our Journey Section -->
-<section class="py-20 bg-brand-surface relative overflow-hidden">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-16">
-            <span class="text-brand-accent tracking-widest uppercase text-sm font-semibold">Our Journey</span>
-            <h2 class="font-serif text-3xl md:text-4xl text-brand-primary mt-2">A Love Story We Never Planned</h2>
-            <div class="w-16 h-0.5 bg-brand-accent mx-auto mt-4"></div>
+    <section class="py-20 bg-brand-surface relative overflow-hidden">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <span class="text-brand-accent tracking-widest uppercase text-sm font-semibold">Our Journey</span>
+                <h2 class="font-serif text-3xl md:text-4xl text-brand-primary mt-2">A Love Story We Never Planned</h2>
+                <div class="w-16 h-0.5 bg-brand-accent mx-auto mt-4"></div>
+            </div>
+
+            <div class="relative container mx-auto px-4">
+                <!-- Center Timeline Line -->
+                <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-brand-accent/30"></div>
+
+                <!-- Milestone 1 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">01</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">The Classmates</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Where it all began. Sitting in the same classrooms, sharing notes, and sparking a connection that would eventually define our lives.</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="text-3xl opacity-80">🎓</span>
+                    </div>
+                </div>
+
+                <!-- Milestone 2 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="text-3xl opacity-80">🃏</span>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">02</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">UNO & Bangalore</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Hangouts, laughter, Making fun of each other, UNO card game, and exploring Bangalore together brought us closer than ever.</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 3 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">03</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">The Certificate Journey</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Chasing goals side-by-side, motivating each other through every challenge, and celebrating shared achievements.</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="text-3xl opacity-80">🏍️</span>
+                    </div>
+                </div>
+
+                <!-- Milestone 4 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="text-3xl opacity-80">❤️</span>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">04</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">Friendship Became Love</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Her unexpected proposals changed my whole world. Through the doubts of whether it was just affection, we found our truth.</p>
+                    </div>
+                </div>
+
+                <!-- Milestone 5 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">05</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">Building Together</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Growing our careers, building foundations, and looking forward to a lifetime of shared dreams.</p>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="text-3xl opacity-80">🏢</span>
+                    </div>
+                </div>
+
+                <!-- Milestone 6 -->
+                <div class="relative flex items-center justify-between mb-12 fade-in-section">
+                    <div class="w-1/2 pr-8 md:pr-16 text-right">
+                        <span class="text-3xl opacity-80">✨</span>
+                    </div>
+                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
+                    <div class="w-1/2 pl-8 md:pl-16 text-left">
+                        <span class="font-sans text-brand-accent uppercase tracking-widest text-[10px] font-bold mb-1 block">06</span>
+                        <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">Forever</h4>
+                        <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">The classmates became friends, the friends became lovers, the lovers became partners, and soon... husband and wife.</p>
+                    </div>
+                </div>
+                <p class="font-serif italic text-lg md:text-xl text-gray-500 mt-16 max-w-2xl mx-auto text-center">"Our story is not ending here. This is only the beginning of our next chapter."</p>
+            </div>
         </div>
-
-        <div class="relative container mx-auto px-4">
-            <!-- Center Timeline Line -->
-            <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-0.5 bg-brand-accent/30"></div>
-
-            <!-- Milestone 1 -->
-            <div class="relative flex items-center justify-between mb-12 fade-in-section">
-                <div class="w-1/2 pr-8 md:pr-16 text-right">
-                    <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">The Classmates</h4>
-                    <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Where it all began. Sitting in the same classrooms, sharing notes, and sparking a connection that would eventually define our lives.</p>
-                </div>
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-                <div class="w-1/2 pl-8 md:pl-16 text-left">
-                    <span class="text-3xl opacity-80">🎓</span>
-                </div>
-            </div>
-
-            <!-- Milestone 2 -->
-            <div class="relative flex items-center justify-between mb-12 fade-in-section">
-                <div class="w-1/2 pr-8 md:pr-16 text-right">
-                    <span class="text-3xl opacity-80">🃏</span>
-                </div>
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-                <div class="w-1/2 pl-8 md:pl-16 text-left">
-                    <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">A Game of UNO &amp; Bangalore Nights</h4>
-                    <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Hangouts, laughter, Making fun of each other, UNO card game, and exploring Bangalore together brought us closer than ever.</p>
-                </div>
-            </div>
-
-            <!-- Milestone 3 -->
-            <div class="relative flex items-center justify-between mb-12 fade-in-section">
-                <div class="w-1/2 pr-8 md:pr-16 text-right">
-                    <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">The Certificate Journey</h4>
-                    <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Chasing goals side-by-side, motivating each other through every challenge, and celebrating shared achievements.</p>
-                </div>
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-                <div class="w-1/2 pl-8 md:pl-16 text-left">
-                    <span class="text-3xl opacity-80">🏍️</span>
-                </div>
-            </div>
-
-            <!-- Milestone 4 -->
-            <div class="relative flex items-center justify-between mb-12 fade-in-section">
-                <div class="w-1/2 pr-8 md:pr-16 text-right">
-                    <span class="text-3xl opacity-80">❤️</span>
-                </div>
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-                <div class="w-1/2 pl-8 md:pl-16 text-left">
-                    <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">When Friendship Became Love</h4>
-                    <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Her unexpected proposals changed my whole world. Through the doubts of whether it was just affection, we found our truth.</p>
-                </div>
-            </div>
-
-            <!-- Milestone 5 -->
-            <div class="relative flex items-center justify-between mb-12 fade-in-section">
-                <div class="w-1/2 pr-8 md:pr-16 text-right">
-                    <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">Building Together</h4>
-                    <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">Growing our careers, building foundations, and looking forward to a lifetime of shared dreams.</p>
-                </div>
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-                <div class="w-1/2 pl-8 md:pl-16 text-left">
-                    <span class="text-3xl opacity-80">🏢</span>
-                </div>
-            </div>
-
-            <!-- Milestone 6 -->
-<div class="relative flex items-center justify-between mb-12 fade-in-section">
-        <div class="w-1/2 pr-8 md:pr-16 text-right">
-            <span class="text-3xl opacity-80">✨</span>
-        </div>
-        <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-white border-2 border-brand-accent rounded-full z-10 shadow-[0_0_0_4px_rgba(212,175,55,0.2)]"></div>
-        <div class="w-1/2 pl-8 md:pl-16 text-left">
-            <h4 class="font-serif text-xl md:text-2xl text-brand-primary mb-2">Forever</h4>
-            <p class="text-sm md:text-base text-gray-600 font-light leading-relaxed">The classmates became friends, the friends became lovers, the lovers became partners, and soon... husband and wife. Because the greatest love stories aren't always perfectly planned; sometimes they happen quietly, between friends.</p>
-        </div>
-    </div>
-    <p class="font-serif italic text-lg md:text-xl text-gray-500 mt-16 max-w-2xl mx-auto text-center">"Our story is not ending here. This is only the beginning of the next chapter."</p>
-</div>
-</div>
-</section>
+    </section>
 
     <!-- 🎵 Audio Elements 🎵 -->
     <audio id="bg-music" loop preload="auto" autoplay>
         <source src="marriage-invitation.mp3" type="audio/mp3">
     </audio>
 
-    <!-- 🎵 Music Toggle Button 🎵 -->
-    <button id="music-toggle" class="fixed bottom-6 left-6 md:bottom-8 md:left-8 bg-white/90 backdrop-blur-sm text-brand-traditional p-4 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 z-50 flex items-center justify-center border border-gray-200 group">
-    
-    <!-- Modern Minimalist Play Icon -->
-<svg id="music-icon-play" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-1.256 1.396-2.032 2.449-1.428l10.584 6.074c1.02.585 1.02 2.052 0 2.637l-10.584 6.074c-1.053.604-2.449-.172-2.449-1.428V5.653z"></path>
-</svg>
-    <!-- Modern Minimalist Pause Icon -->
-<svg id="music-icon-pause" class="w-5 h-5 hidden transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 5.25v13.5m-7.5-13.5v13.5"></path>
-</svg>
-    </div>
-<!-- RSVP Modal -->
-<div id="rsvp-modal" class="fixed inset-0 z-[200] hidden bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 transition-opacity duration-300 opacity-0">
-    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 border border-brand-accent/20">
-        <div class="bg-brand-primary p-6 text-center relative">
-            <h2 class="font-serif text-3xl text-brand-accent mb-1">RSVP</h2>
-            <p class="font-sans text-white/80 text-xs uppercase tracking-widest">We'd love to see you there</p>
-            <button id="close-rsvp" class="absolute top-4 right-4 text-white hover:text-brand-accent transition">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
+    <!-- 🎵 Floating Action Buttons (Music & WhatsApp) 🎵 -->
+    <div class="fixed bottom-6 left-6 md:bottom-8 md:left-8 flex flex-col gap-4 z-50">
+        <!-- WhatsApp Share Button -->
+        <button id="whatsapp-share" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#128C7E] transition duration-300 flex items-center justify-center border border-green-400 group">
+            <svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+            </svg>
+        </button>
+
+        <!-- Music Toggle -->
+        <button id="music-toggle" class="bg-white/90 backdrop-blur-sm text-brand-traditional p-4 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 flex items-center justify-center border border-gray-200 group">
+            <!-- Modern Minimalist Play Icon -->
+            <svg id="music-icon-play" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <div id="rsvp-modal" class="fixed inset-0 z-[200] hidden bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 transition-opacity duration-300 opacity-0">
+        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 border border-brand-accent/20">
+            <div class="bg-brand-primary p-6 text-center relative">
+                <h2 class="font-serif text-3xl text-brand-accent mb-1">RSVP</h2>
+                <p class="font-sans text-white/80 text-xs uppercase tracking-widest">We'd love to see you there</p>
+                <button id="close-rsvp" class="absolute top-4 right-4 text-white hover:text-brand-accent transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <form id="rsvp-form" class="p-8 space-y-5">
+                <div>
+                    <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Name(s)</label>
+                    <input type="text" name="name" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="John & Jane Doe">
+                </div>
+                <div>
+                    <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Will you attend?</label>
+                    <select name="attendance" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent text-gray-700">
+                        <option value="Yes, joyfully accept">Yes, joyfully accept</option>
+                        <option value="Regretfully decline">Regretfully decline</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Number of Guests</label>
+                    <input type="number" name="guests" min="1" max="10" value="1" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent">
+                </div>
+                <div>
+                    <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Leave a Message</label>
+                    <textarea name="message" rows="3" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="Warm wishes for the couple..."></textarea>
+                </div>
+                <button type="submit" id="rsvp-submit-btn" class="w-full bg-brand-traditional text-white py-4 rounded-full hover:bg-brand-accent transition duration-300 font-sans tracking-[0.2em] uppercase text-xs shadow-md mt-4">
+                    Send RSVP
+                </button>
+                <p id="rsvp-status" class="text-center font-sans text-sm mt-4 hidden"></p>
+            </form>
         </div>
-        <form id="rsvp-form" class="p-8 space-y-5">
-            <div>
-                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Name(s)</label>
-                <input type="text" name="name" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="John & Jane Doe">
-            </div>
-            <div>
-                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Will you attend?</label>
-                <select name="attendance" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent text-gray-700">
-                    <option value="Yes, joyfully accept">Yes, joyfully accept</option>
-                    <option value="Regretfully decline">Regretfully decline</option>
-                </select>
-            </div>
-            <div>
-                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Number of Guests</label>
-                <input type="number" name="guests" min="1" max="10" value="1" required class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent">
-            </div>
-            <div>
-                <label class="block font-sans text-xs uppercase tracking-widest text-brand-primary mb-2">Leave a Message</label>
-                <textarea name="message" rows="3" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-sm bg-transparent" placeholder="Warm wishes for the couple..."></textarea>
-            </div>
-            <button type="submit" id="rsvp-submit-btn" class="w-full bg-brand-traditional text-white py-4 rounded-full hover:bg-brand-accent transition duration-300 font-sans tracking-[0.2em] uppercase text-xs shadow-md mt-4">
-                Send RSVP
-            </button>
-            <p id="rsvp-status" class="text-center font-sans text-sm mt-4 hidden"></p>
-        </form>
     </div>
-</div>
+    
     <!-- Scripts -->
     <script>
         // --- 1. Scroll Animations & Reset to Top on Reload ---
-document.addEventListener("DOMContentLoaded", function() {
-    // Force page to always start at the top on reload
-    window.scrollTo(0, 0);
+        document.addEventListener("DOMContentLoaded", function() {
+            // Force page to always start at the top on reload
+            window.scrollTo(0, 0);
 
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-            }
-        });
-    }, { threshold: 0.15 });
-    
-    document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, { threshold: 0.15 });
             
+            document.querySelectorAll('.fade-in-section').forEach((section) => observer.observe(section));
+                    
             // --- Slideshow Logic ---
             const images = document.querySelectorAll('.slideshow-image');
             let currentImageIndex = 0;
 
             function nextImage() {
+                if(images.length === 0) return;
                 images[currentImageIndex].classList.remove('active');
                 currentImageIndex = (currentImageIndex + 1) % images.length;
                 images[currentImageIndex].classList.add('active');
@@ -586,7 +620,8 @@ document.addEventListener("DOMContentLoaded", function() {
             // Change image every 3 seconds (1s fade + 3s viewing time)
             setInterval(nextImage, 4000); 
         });
-// --- Countdown Timer Logic ---
+        
+        // --- Countdown Timer Logic ---
         const targetDate = new Date("November 15, 2026 00:00:00").getTime();
 
         const countdownInterval = setInterval(function() {
@@ -611,171 +646,185 @@ document.addEventListener("DOMContentLoaded", function() {
         }, 1000);
 
         // --- Welcome Overlay, Rose Petals, & Auto-Play Logic ---
-const openBtn = document.getElementById('open-invitation-btn');
-const welcomeOverlay = document.getElementById('welcome-overlay');
-const bgMusic = document.getElementById('bg-music');
-
-openBtn.addEventListener('click', async () => {
-    try {
-        await bgMusic.play();
-    } catch (err) {
-        console.log("Audio autoplay blocked or failed:", err);
-    }
-    
-    // Create falling red rose petals animation effect during transition
-    const petalCount = 25;
-    for (let i = 0; i < petalCount; i++) {
-        const petal = document.createElement('div');
-        petal.classList.add('falling-petal');
-        
-        // Randomize size, horizontal position, speed, and delay
-        const size = Math.random() * 12 + 10;
-        petal.style.width = `${size}px`;
-        petal.style.height = `${size * 1.4}px`;
-        petal.style.left = `${Math.random() * 100}vw`;
-        
-        const duration = Math.random() * 0.6 + 0.8; // 0.8s to 1.4s
-        const delay = Math.random() * 0.3;
-        petal.style.animationDuration = `${duration}s`;
-        petal.style.animationDelay = `${delay}s`;
-        
-        document.body.appendChild(petal);
-        
-        // Clean up petals after animation completes
-        setTimeout(() => {
-            petal.remove();
-        }, (duration + delay) * 1000);
-    }
-    
-    // Trigger smooth fade out and scale up animation
-    welcomeOverlay.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
-    welcomeOverlay.style.opacity = '0';
-    welcomeOverlay.style.transform = 'scale(1.05)';
-    welcomeOverlay.style.pointerEvents = 'none';
-    
-    // Completely hide and remove from layout after 1 second
-    setTimeout(() => {
-        welcomeOverlay.style.display = 'none';
-        document.body.classList.remove('overflow-hidden');
-    }, 1000);
-});
-    // --- Music Toggle Logic ---
-    const musicToggleBtn = document.getElementById('music-toggle');
-    const playIcon = document.getElementById('music-icon-play');
-    const pauseIcon = document.getElementById('music-icon-pause');
-
-    musicToggleBtn.addEventListener('click', async () => {
-        try {
-            if (bgMusic.paused) {
-                await bgMusic.play();
-
-                playIcon.classList.add('hidden');
-                pauseIcon.classList.remove('hidden');
-            } else {
-                bgMusic.pause();
-
-                playIcon.classList.remove('hidden');
-                pauseIcon.classList.add('hidden');
-            }
-        } catch (error) {
-            console.error("Audio playback failed:", error);
-            alert("Unable to play the wedding music. Please check that the MP3 file is available.");
-        }
-    });
-
-    // Keep icon synchronized with actual audio state
-    bgMusic.addEventListener('play', () => {
-        playIcon.classList.add('hidden');
-        pauseIcon.classList.remove('hidden');
-    });
-
-    bgMusic.addEventListener('pause', () => {
-        playIcon.classList.remove('hidden');
-        pauseIcon.classList.add('hidden');
-    });
-        
-// --- RSVP Modal & Google Sheets Logic ---
-const rsvpBtn = document.getElementById('open-rsvp-btn');
-const rsvpModal = document.getElementById('rsvp-modal');
-const closeRsvpBtn = document.getElementById('close-rsvp');
-const rsvpForm = document.getElementById('rsvp-form');
-const rsvpStatus = document.getElementById('rsvp-status');
-
-// PASTE YOUR GOOGLE SCRIPT URL HERE:
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJcyxsOi0gXANUWR6-bvfPGKTcnYryoLGhxASjmMiKaug-Dv9J00da5LR8tIBc6C0U9A/exec';
-
-rsvpBtn.addEventListener('click', () => {
-    rsvpModal.classList.remove('hidden');
-    setTimeout(() => {
-        rsvpModal.classList.remove('opacity-0');
-        rsvpModal.firstElementChild.classList.remove('scale-95');
-    }, 10);
-});
-
-function closeRsvpModal() {
-    rsvpModal.classList.add('opacity-0');
-    rsvpModal.firstElementChild.classList.add('scale-95');
-    setTimeout(() => {
-        rsvpModal.classList.add('hidden');
-        rsvpStatus.classList.add('hidden'); 
-        rsvpForm.reset();
-    }, 300);
-}
-
-closeRsvpBtn.addEventListener('click', closeRsvpModal);
-rsvpModal.addEventListener('click', (e) => {
-    if(e.target === rsvpModal) closeRsvpModal();
-});
-
-rsvpForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const submitBtn = document.getElementById('rsvp-submit-btn');
-    submitBtn.innerText = 'Sending...';
-    submitBtn.disabled = true;
-
-    const formData = new FormData(rsvpForm);
-
-    fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => {
-        submitBtn.innerText = 'Send RSVP';
-        submitBtn.disabled = false;
-        rsvpStatus.classList.remove('hidden');
-        rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-green-600';
-        rsvpStatus.innerText = 'Thank you! Your RSVP has been received. 🎉';
-        setTimeout(closeRsvpModal, 3000);
-    })
-    .catch(error => {
-        submitBtn.innerText = 'Send RSVP';
-        submitBtn.disabled = false;
-        rsvpStatus.classList.remove('hidden');
-        rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-red-600';
-        rsvpStatus.innerText = 'Oops! Something went wrong. Please try again.';
-    });
-});
-</script>
-        
-<footer class="bg-brand-surface border-t border-gray-100 text-gray-400 py-8 text-center font-sans text-xs tracking-wider uppercase mb-16 md:mb-0">
-    <p>&copy; 2026 Mridhul &amp; Neha. All Rights Reserved.</p>
-</footer>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
         const openBtn = document.getElementById('open-invitation-btn');
-        const welcomeCover = document.querySelector('.fixed.inset-0'); // Targets your full-screen cover overlay
+        const welcomeOverlay = document.getElementById('welcome-overlay');
+        const envelopeCard = document.getElementById('envelope-card');
+        const bgMusic = document.getElementById('bg-music');
 
-        if (openBtn && welcomeCover) {
-            openBtn.addEventListener('click', () => {
-                welcomeCover.style.opacity = '0';
-                welcomeCover.style.transition = 'opacity 0.6s ease';
+        openBtn.addEventListener('click', async () => {
+            try {
+                await bgMusic.play();
+            } catch (err) {
+                console.log("Audio autoplay blocked or failed:", err);
+            }
+            
+            // 1. Animate the card sliding up and fading out
+            envelopeCard.classList.add('envelope-open-anim');
+            
+            // Create falling red rose petals animation effect during transition
+            const petalCount = 25;
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('falling-petal');
+                
+                // Randomize size, horizontal position, speed, and delay
+                const size = Math.random() * 12 + 10;
+                petal.style.width = `${size}px`;
+                petal.style.height = `${size * 1.4}px`;
+                petal.style.left = `${Math.random() * 100}vw`;
+                
+                const duration = Math.random() * 0.6 + 0.8; // 0.8s to 1.4s
+                const delay = Math.random() * 0.3;
+                petal.style.animationDuration = `${duration}s`;
+                petal.style.animationDelay = `${delay}s`;
+                
+                document.body.appendChild(petal);
+                
+                // Clean up petals after animation completes
                 setTimeout(() => {
-                    welcomeCover.style.display = 'none';
-                }, 600);
+                    petal.remove();
+                }, (duration + delay) * 1000);
+            }
+            
+            // Trigger smooth fade out and scale up animation
+            welcomeOverlay.style.transition = 'opacity 1s ease-in-out, transform 1s ease-in-out';
+            welcomeOverlay.style.opacity = '0';
+            welcomeOverlay.style.transform = 'scale(1.05)';
+            welcomeOverlay.style.pointerEvents = 'none';
+            
+            // Completely hide and remove from layout after 1 second
+            setTimeout(() => {
+                welcomeOverlay.style.display = 'none';
+                document.body.classList.remove('overflow-hidden');
+            }, 1000);
+        });
+        
+        // --- Music Toggle Logic ---
+        const musicToggleBtn = document.getElementById('music-toggle');
+        const playIcon = document.getElementById('music-icon-play');
+        const pauseIcon = document.getElementById('music-icon-pause');
+
+        musicToggleBtn.addEventListener('click', async () => {
+            try {
+                if (bgMusic.paused) {
+                    await bgMusic.play();
+
+                    playIcon.classList.add('hidden');
+                    pauseIcon.classList.remove('hidden');
+                } else {
+                    bgMusic.pause();
+
+                    playIcon.classList.remove('hidden');
+                    pauseIcon.classList.add('hidden');
+                }
+            } catch (error) {
+                console.error("Audio playback failed:", error);
+                alert("Unable to play the wedding music. Please check that the MP3 file is available.");
+            }
+        });
+
+        bgMusic.addEventListener('pause', () => {
+            playIcon.classList.remove('hidden');
+            pauseIcon.classList.add('hidden');
+        });
+
+        // --- WhatsApp Share Logic ---
+        const whatsappBtn = document.getElementById('whatsapp-share');
+        whatsappBtn.addEventListener('click', () => {
+            const message = "You're invited to celebrate the wedding of Mridhul & Neha ❤\n📅 15 & 16 November 2026\nWe'd love to have you with us!\n\nView Invitation: " + window.location.href;
+            const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        });
+            
+        // --- RSVP Modal & Google Sheets Logic ---
+        // Added optional chaining in case these buttons were intended to be added later
+        const rsvpBtn = document.getElementById('open-rsvp-btn');
+        const rsvpModal = document.getElementById('rsvp-modal');
+        const closeRsvpBtn = document.getElementById('close-rsvp');
+        const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpStatus = document.getElementById('rsvp-status');
+
+        // PASTE YOUR GOOGLE SCRIPT URL HERE:
+        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJcyxsOi0gXANUWR6-bvfPGKTcnYryoLGhxASjmMiKaug-Dv9J00da5LR8tIBc6C0U9A/exec';
+
+        if(rsvpBtn) {
+            rsvpBtn.addEventListener('click', () => {
+                rsvpModal.classList.remove('hidden');
+                setTimeout(() => {
+                    rsvpModal.classList.remove('opacity-0');
+                    rsvpModal.firstElementChild.classList.remove('scale-95');
+                }, 10);
             });
         }
-    });
-</script>
-</script>
+
+        function closeRsvpModal() {
+            if(!rsvpModal) return;
+            rsvpModal.classList.add('opacity-0');
+            rsvpModal.firstElementChild.classList.add('scale-95');
+            setTimeout(() => {
+                rsvpModal.classList.add('hidden');
+                rsvpStatus.classList.add('hidden'); 
+                if(rsvpForm) rsvpForm.reset();
+            }, 300);
+        }
+
+        if(closeRsvpBtn) closeRsvpBtn.addEventListener('click', closeRsvpModal);
+        if(rsvpModal) {
+            rsvpModal.addEventListener('click', (e) => {
+                if(e.target === rsvpModal) closeRsvpModal();
+            });
+        }
+
+        if(rsvpForm) {
+            rsvpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = document.getElementById('rsvp-submit-btn');
+                submitBtn.innerText = 'Sending...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(rsvpForm);
+
+                fetch(GOOGLE_SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => {
+                    submitBtn.innerText = 'Send RSVP';
+                    submitBtn.disabled = false;
+                    rsvpStatus.classList.remove('hidden');
+                    rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-green-600';
+                    rsvpStatus.innerText = 'Thank you! Your RSVP has been received. 🎉';
+                    setTimeout(closeRsvpModal, 3000);
+                })
+                .catch(error => {
+                    submitBtn.innerText = 'Send RSVP';
+                    submitBtn.disabled = false;
+                    rsvpStatus.classList.remove('hidden');
+                    rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-red-600';
+                    rsvpStatus.innerText = 'Oops! Something went wrong. Please try again.';
+                });
+            });
+        }
+    </script>
+        
+    <footer class="bg-brand-surface border-t border-gray-100 text-gray-400 py-8 text-center font-sans text-xs tracking-wider uppercase mb-16 md:mb-0">
+        <p>&copy; 2026 Mridhul &amp; Neha. All Rights Reserved.</p>
+    </footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const openBtn = document.getElementById('open-invitation-btn');
+            const welcomeCover = document.querySelector('.fixed.inset-0'); // Targets your full-screen cover overlay
+
+            if (openBtn && welcomeCover) {
+                openBtn.addEventListener('click', () => {
+                    welcomeCover.style.opacity = '0';
+                    welcomeCover.style.transition = 'opacity 0.6s ease';
+                    setTimeout(() => {
+                        welcomeCover.style.display = 'none';
+                    }, 600);
+                });
+            }
+        });
+    </script>
 </body>
 </html>
