@@ -767,29 +767,35 @@
             });
         }
 
+        const rsvpForm = document.getElementById('rsvp-form');
+        const rsvpStatus = document.getElementById('rsvp-status');
+
         if (rsvpForm) {
     rsvpForm.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        // Get form values
+        // Get form values from the fields shown in your screenshot
         const formData = new FormData(this);
         const name = formData.get('name');
         const attendance = formData.get('attendance');
         const guests = formData.get('guests');
         const message = formData.get('message');
         
-        // Format the message for your WhatsApp
+        // Format the message with user input for your WhatsApp
         const whatsappMessage = `*New Wedding RSVP Response!*%0A%0A` +
                                 `*Name(s):* ${encodeURIComponent(name)}%0A` +
                                 `*Attendance:* ${encodeURIComponent(attendance)}%0A` +
                                 `*Number of Guests:* ${encodeURIComponent(guests)}%0A` +
                                 `*Message:* ${encodeURIComponent(message)}`;
         
-        // Your WhatsApp number
+        // Your personal WhatsApp number with country code
         const phoneNumber = "918138856631";
         
-        // Open WhatsApp with the pre-filled message
+        // Construct the direct WhatsApp app/web link
+        // Construct the direct WhatsApp app/web link
         const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
+        
+        // Open WhatsApp with the pre-filled message
         window.open(whatsappUrl, '_blank');
         
         // Show success status and reset form
@@ -801,7 +807,9 @@
         
         setTimeout(() => {
             this.reset();
-            closeRsvpModal();
+            if (typeof closeRsvpModal === 'function') {
+                closeRsvpModal();
+            }
             if (rsvpStatus) rsvpStatus.classList.add('hidden');
         }, 2500);
     });
