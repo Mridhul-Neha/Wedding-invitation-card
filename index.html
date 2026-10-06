@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mridhul & Neha - Wedding Invitation</title>
-
+    
     <!-- Google Fonts for Elegant Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -538,12 +538,20 @@
     <audio id="bg-music" loop preload="auto" autoplay>
         <source src="marriage-invitation.mp3" type="audio/mp3">
     </audio>
+
+    <!-- 🎵 Floating Action Buttons (Music & WhatsApp) 🎵 -->
+    <div class="fixed bottom-6 left-6 md:bottom-8 md:left-8 flex flex-col gap-4 z-50">
+        <!-- WhatsApp Share Button -->
+        <button id="whatsapp-share" class="bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:bg-[#128C7E] transition duration-300 flex items-center justify-center border border-green-400 group">
+            <svg class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+            </svg>
+        </button>
+
         <!-- Music Toggle -->
-        <button id="music-toggle" class="bg-white/90 backdrop-blur-sm text-brand-traditional p-3 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 flex items-center justify-center border border-gray-200 group" aria-label="Play/Pause Music">
-    <!-- Spotify Play/Pause Light Icon -->
-    <svg id="music-icon-play" class="w-6 h-6 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l7 4.5-7 4.5z"/>
-    </svg>
+        <button id="music-toggle" class="bg-white/90 backdrop-blur-sm text-brand-traditional p-4 rounded-full shadow-2xl hover:bg-brand-traditional hover:text-white transition duration-300 flex items-center justify-center border border-gray-200 group">
+            <!-- Modern Minimalist Play Icon -->
+            <svg id="music-icon-play" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
     <div id="rsvp-modal" class="fixed inset-0 z-[200] hidden bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 transition-opacity duration-300 opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 border border-brand-accent/20">
             <div class="bg-brand-primary p-6 text-center relative">
@@ -728,16 +736,13 @@
             window.open(whatsappUrl, '_blank');
         });
             
-        // --- RSVP Modal & Google Sheets Logic ---
+        // --- RSVP Modal & WhatsApp Logic ---
         // Added optional chaining in case these buttons were intended to be added later
         const rsvpBtn = document.getElementById('open-rsvp-btn');
         const rsvpModal = document.getElementById('rsvp-modal');
         const closeRsvpBtn = document.getElementById('close-rsvp');
         const rsvpForm = document.getElementById('rsvp-form');
         const rsvpStatus = document.getElementById('rsvp-status');
-
-        // PASTE YOUR GOOGLE SCRIPT URL HERE:
-        const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJcyxsOi0gXANUWR6-bvfPGKTcnYryoLGhxASjmMiKaug-Dv9J00da5LR8tIBc6C0U9A/exec';
 
         if(rsvpBtn) {
             rsvpBtn.addEventListener('click', () => {
@@ -767,70 +772,49 @@
             });
         }
 
-        if (rsvpForm) {
-    rsvpForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Get form values from the fields shown in your screenshot
-        const formData = new FormData(this);
-        const name = formData.get('name');
-        const attendance = formData.get('attendance');
-        const guests = formData.get('guests');
-        const message = formData.get('message');
-        
-        // Format the message with user input for your WhatsApp
-        const whatsappMessage = `*New Wedding RSVP Response!*%0A%0A` +
-                                `*Name(s):* ${encodeURIComponent(name)}%0A` +
-                                `*Attendance:* ${encodeURIComponent(attendance)}%0A` +
-                                `*Number of Guests:* ${encodeURIComponent(guests)}%0A` +
-                                `*Message:* ${encodeURIComponent(message)}`;
-        
-        // Your personal WhatsApp number with country code
-        const phoneNumber = "918138856631";
-        
-        // Construct the direct WhatsApp app/web link
-        // Construct the direct WhatsApp app/web link
-        const whatsappUrl = `https://wa.me/${phoneNumber}?text=${whatsappMessage}`;
-        
-        // Open WhatsApp with the pre-filled message
-        window.open(whatsappUrl, '_blank');
-        
-        // Show success status and reset form
-        if (rsvpStatus) {
-            rsvpStatus.textContent = "Thank you! Redirecting to WhatsApp to send your RSVP...";
-            rsvpStatus.classList.remove('hidden');
-            rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-green-600';
+        if(rsvpForm) {
+            rsvpForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const submitBtn = document.getElementById('rsvp-submit-btn');
+                submitBtn.innerText = 'Redirecting...';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(rsvpForm);
+                const name = formData.get('name');
+                const attendance = formData.get('attendance');
+                const guests = formData.get('guests');
+                const message = formData.get('message');
+                
+                // Format the message for WhatsApp
+                const whatsappMessage = `*Wedding RSVP - Mridhul & Neha*\n\n` +
+                                        `*Name(s):* ${name}\n` +
+                                        `*Attending:* ${attendance}\n` +
+                                        `*Number of Guests:* ${guests}\n` +
+                                        `*Message:* ${message}`;
+                                        
+                // WhatsApp number with country code
+                const phoneNumber = "918138856631";
+                const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+
+                // Open WhatsApp
+                window.open(whatsappUrl, '_blank');
+
+                // Update UI and reset
+                submitBtn.innerText = 'Send RSVP';
+                submitBtn.disabled = false;
+                rsvpStatus.classList.remove('hidden');
+                rsvpStatus.className = 'text-center font-sans text-sm mt-4 text-green-600';
+                rsvpStatus.innerText = 'Thank you! Redirecting to WhatsApp...';
+                
+                setTimeout(() => {
+                    closeRsvpModal();
+                }, 2000);
+            });
         }
-        
-        setTimeout(() => {
-            this.reset();
-            if (typeof closeRsvpModal === 'function') {
-                closeRsvpModal();
-            }
-            if (rsvpStatus) rsvpStatus.classList.add('hidden');
-        }, 2500);
-    });
-}
     </script>
         
     <footer class="bg-brand-surface border-t border-gray-100 text-gray-400 py-8 text-center font-sans text-xs tracking-wider uppercase mb-16 md:mb-0">
         <p>&copy; 2026 Mridhul &amp; Neha. All Rights Reserved.</p>
     </footer>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const openBtn = document.getElementById('open-invitation-btn');
-            const welcomeCover = document.querySelector('.fixed.inset-0'); // Targets your full-screen cover overlay
-
-            if (openBtn && welcomeCover) {
-                openBtn.addEventListener('click', () => {
-                    welcomeCover.style.opacity = '0';
-                    welcomeCover.style.transition = 'opacity 0.6s ease';
-                    setTimeout(() => {
-                        welcomeCover.style.display = 'none';
-                    }, 600);
-                });
-            }
-        });
-    </script>
 </body>
 </html>
