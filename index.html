@@ -539,15 +539,26 @@
         <source src="marriage-invitation.mp3" type="audio/mp3">
     </audio>
 
-    <!-- 🎵 Floating Music Button 🎵 -->
-<div class="fixed bottom-6 left-6 z-50">
-    <button id="music-toggle" class="bg-white/90 backdrop-blur-sm text-brand-traditional p-2.5 rounded-full shadow-lg hover:bg-brand-traditional hover:text-white transition duration-300 flex items-center justify-center border border-gray-200 group" aria-label="Play/Pause Music">
-        <!-- Spotify Play/Pause Light Icon -->
-        <svg id="music-icon-play" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l7 4.5-7 4.5z"/>
-        </svg>
-    </button>
-</div>
+    <!-- 🎵 Floating Action Buttons (RSVP & Music) 🎵 -->
+    <div class="fixed bottom-6 left-6 z-50 flex flex-col gap-3">
+        <!-- RSVP Button -->
+        <button id="open-rsvp-btn" class="bg-brand-traditional text-white px-6 py-3 rounded-full shadow-lg hover:bg-brand-accent hover:text-white transition duration-300 flex items-center justify-center border border-brand-traditional/20 group font-sans text-xs tracking-widest uppercase font-medium" aria-label="RSVP">
+            <span class="mr-2">💌</span> RSVP
+        </button>
+
+        <!-- Music Toggle -->
+        <button id="music-toggle" class="bg-white/90 backdrop-blur-sm text-brand-traditional p-3 w-12 h-12 rounded-full shadow-lg hover:bg-brand-traditional hover:text-white transition duration-300 flex items-center justify-center border border-gray-200 group self-start" aria-label="Play/Pause Music">
+            <!-- Spotify Play/Pause Light Icon -->
+            <svg id="music-icon-play" class="w-5 h-5 transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l7 4.5-7 4.5z"/>
+            </svg>
+            <!-- Pause Icon -->
+            <svg id="music-icon-pause" class="w-5 h-5 hidden transition-transform duration-300 group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14h-2V8h2v8zm4 0h-2V8h2v8z"/>
+            </svg>
+        </button>
+    </div>
+
     <div id="rsvp-modal" class="fixed inset-0 z-[200] hidden bg-black/60 backdrop-blur-sm flex justify-center items-center px-4 transition-opacity duration-300 opacity-0">
         <div class="bg-white rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden transform scale-95 transition-transform duration-300 border border-brand-accent/20">
             <div class="bg-brand-primary p-6 text-center relative">
